@@ -37,7 +37,7 @@ class ShawScrapy(Spider):
 		next_page = response.xpath('//span[@class="next"]/a/@href').extract_first()
 
 		if next_page:
-			request_url = start_urls[0]+next_page
+			request_url = 'https://movie.douban.com/top250'+next_page
 			yield Request(request_url, callback = self.parse)
     
 		
