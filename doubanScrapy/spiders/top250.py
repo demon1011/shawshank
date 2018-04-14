@@ -11,7 +11,7 @@ class ShawScrapy(Spider):
 		yield Request(self.start_urls, callback = self.parse)
 	
 	def parse(self,response):
-		for theme in response.xpath('//ol[@class="grid_view"]/li')
+		for theme in response.xpath('//ol[@class="grid_view"]/li'):
 			movie_page=theme.xpath('div[@class="item"]/div[class="pic"]/a/@href').extract_first()
 			reivew_url=movie_page+'reviews'
 			yield Request(review_url,callback=self.parse_review)
