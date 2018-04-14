@@ -12,9 +12,9 @@ class ShawScrapy(Spider):
 	
 	def parse(self,response):
 		for theme in response.xpath('//ol[@class="grid_view"]/li'):
-			movie_page=theme.xpath('div[@class="item"]/div[class="pic"]/a/@href').extract_first()
-			print(movie_page)
-			movie_url=str(str(movie_page)+'reviews')
+			movie_page=theme.xpath('div[@class="item"]/div[class="pic"]/a/@href').extract()
+			if movie_page:
+				movie_url=str(str(movie_page[0])+'reviews')
 			yield Request(movie_url,callback=self.parse_review)
 			
 
