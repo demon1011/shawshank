@@ -34,10 +34,10 @@ class ShawScrapy(Spider):
 
 			
 		#获取当前url的下一页链接	
-		next_page = response.xpath('//span[@class="next"]/a/@href').extract_first()
+	next_page = response.xpath('//span[@class="next"]/a/@href').extract_first()
 
-		if next_page:
-			request_url = 'https://movie.douban.com/top250'+next_page
-			yield Request(request_url, callback = self.parse)
+	if next_page:
+		request_url = 'https://movie.douban.com/top250'+next_page
+		yield Request(request_url, callback = self.parse)
     
 		
