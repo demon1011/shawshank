@@ -5,7 +5,7 @@ class ShawScrapy(Spider):
 	"""Comment of Shawshank"""
 	name = 'shaw'
 	# 爬虫起始url
-	start_urls = ["https://movie.douban.com/subject/1292052/reviews?start=20"]
+	start_urls = ["https://movie.douban.com/subject/1292052/reviews"]
 
 	def start_request(self):
 		yield Request(self.start_urls, callback = self.parse)

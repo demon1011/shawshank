@@ -68,10 +68,14 @@ COOKIES_ENABLED = False
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+DOWNLOADER_MIDDLEWARES = {
 #   'doubanScrapy.middlewares.DoubanscrapySpiderMiddleware': 543,
-#}
-
+   'scrapy_crawlera.CrawleraMiddleware':600
+}
+CRAWLERA_ENABLED=True
+CRAWLERA_USER='8264922bf205471ea5c0c6880ba432b7'
+CRAWLERA_PASS=''
+CRAWLERA_PRESERVE_DELAY = True
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 # EXTENSIONS = {
@@ -104,12 +108,12 @@ COOKIES_ENABLED = False
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-PROXIES = [
-    {'ip_port': '111.11.228.75:80', 'user_pass': ''},
-    {'ip_port': '120.198.243.22:80', 'user_pass': ''},
-    {'ip_port': '111.8.60.9:8123', 'user_pass': ''},
-    {'ip_port': '101.71.27.120:80', 'user_pass': ''},
-    {'ip_port': '122.96.59.104:80', 'user_pass': ''},
-    {'ip_port': '122.224.249.122:8088', 'user_pass': ''},
-]
+#PROXIES = [
+#    {'ip_port': '111.11.228.75:80', 'user_pass': ''},
+#    {'ip_port': '120.198.243.22:80', 'user_pass': ''},
+#    {'ip_port': '111.8.60.9:8123', 'user_pass': ''},
+#    {'ip_port': '101.71.27.120:80', 'user_pass': ''},
+#    {'ip_port': '122.96.59.104:80', 'user_pass': ''},
+#    {'ip_port': '122.224.249.122:8088', 'user_pass': ''},
+#]
 
