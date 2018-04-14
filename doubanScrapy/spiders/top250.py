@@ -9,12 +9,30 @@ class ShawScrapy(Spider):
 
 	def start_request(self):
 		yield Request(self.start_urls, callback = self.parse)
+
 	
 	def parse(self,response):
 		for theme in response.xpath('//ol[@class="grid_view"]/li'):
 			movie_page=theme.xpath('div[@class="item"]/div[@class="pic"]/a/@href').extract_first()
 			movie_url=movie_page+'reviews'
 			yield Request(movie_url,callback=self.parse_review)
+		#获取当前url的下一页链接
+		next_page = response.xpath('//span[@class="next"]/a/@href').extract_first()
+		if next_page:
+			request_url = 'https://movie.douban.com/top250'+next_page
+			yield Request(request_url, callback = self.parse_2)
+
+	#用parse和parse_2互相调用，防止单个parse在内存里存在时间过长出现leakage？
+	def parse_2(self,response):
+		for theme in response.xpath('//ol[@class="grid_view"]/li'):
+			movie_page=theme.xpath('div[@class="item"]/div[@class="pic"]/a/@href').extract_first()
+			movie_url=movie_page+'reviews'
+			yield Request(movie_url,callback=self.parse_review)
+		#获取当前url的下一页链接
+		next_page = response.xpath('//span[@class="next"]/a/@href').extract_first()
+		if next_page:
+			request_url = 'https://movie.douban.com/top250'+next_page
+			yield Request(request_url, callback = self.parse)
 			
 
 	def parse_review(self, response):
@@ -32,12 +50,3 @@ class ShawScrapy(Spider):
 			item['comment_content']=''.join(content)
 		yield item
 
-			
-		#获取当前url的下一页链接	
-	next_page = response.xpath('//span[@class="next"]/a/@href').extract_first()
-
-	if next_page:
-		request_url = 'https://movie.douban.com/top250'+next_page
-	yield Request(request_url, callback = self.parse)
-    
-		
