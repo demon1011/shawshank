@@ -8,8 +8,8 @@
 class DoubanscrapyPipeline(object):
     def process_item(self, item, spider):
     	
-    	with open('/home/darren/PycharmProjects/doubanScrapy-master/doubanScrapy/spiders/rawdata/shawshank.json', 'at') as f:
-    		f.write(item['comment_name']+item['comment_content'].strip()+'\n')
+    	with open('/home/darren/PycharmProjects/doubanScrapy-master/doubanScrapy/spiders/rawdata/'+item['movie_name']+'.json', 'at') as f:
+    		f.write(item['comment_content'].strip()+'\n')
         # return item
 
 

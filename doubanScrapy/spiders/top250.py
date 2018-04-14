@@ -2,15 +2,22 @@ from scrapy import Request, Spider
 from doubanScrapy.items import DoubanscrapyItem 
 
 class ShawScrapy(Spider):
-	"""Comment of Shawshank"""
-	name = 'shaw'
+	"""Comment of all movies"""
+	name = 'top250'
 	# 爬虫起始url
-	start_urls = ["https://movie.douban.com/subject/1292052/reviews"]
+	start_urls = ["https://movie.douban.com/top250"]
 
 	def start_request(self):
 		yield Request(self.start_urls, callback = self.parse)
+	
+	def parse(self,response):
+		for theme in response.xpath('//ol[@class="grid_view"]/li')
+			movie_page=theme.xpath('div[@class="item"]/div[class="pic"]/a/@href').extract_first()
+			reivew_url=movie_page+'reviews'
+			yield Request(review_url,callback=self.parse_review)
+			
 
-	def parse(self, response):
+	def parse_review(self, response):
 		for msg in response.xpath('//div[@class="main-bd"]'):
 			review_page=msg.xpath('h2/a/@href').extract()[0]
 			if review_page:				
@@ -19,7 +26,7 @@ class ShawScrapy(Spider):
 	
 	def parse_download(self,response):
 		item = DoubanscrapyItem()
-		item['comment_name']=response.url
+		item['movie_name']=response.xpath('//div[@class="subject-img"]/a/img/@alt').extract()[0]
 		content =response.xpath('//div[@id="link-report"]/div[@property="v:description"]/descendant::text()').extract()      		
 		if content:
 			item['comment_content']=''.join(content)
