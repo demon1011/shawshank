@@ -38,6 +38,6 @@ class ShawScrapy(Spider):
 
 	if next_page:
 		request_url = 'https://movie.douban.com/top250'+next_page
-		yield Request(request_url, callback = self.parse)
+	yield Request(request_url, callback = self.parse)
     
 		
